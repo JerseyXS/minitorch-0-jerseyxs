@@ -134,8 +134,12 @@ def map(fn):
     Returns:
         function : a function that takes a list and applies `fn` to each element
     """
-    # TODO: Implement for Task 0.3.
-    raise NotImplementedError('Need to implement for Task 0.3')
+    def apply_to_list(list):
+        copy = list.copy()
+        for ele in copy:
+            copy[ele] = fn(ele)
+        return copy
+    return apply_to_list
 
 
 def negList(ls):
@@ -159,8 +163,15 @@ def zipWith(fn):
         applying fn(x, y) one each pair of elements.
 
     """
-    # TODO: Implement for Task 0.3.
-    raise NotImplementedError('Need to implement for Task 0.3')
+    def zip_lists(ls1, ls2):
+        ans = []
+        for i in range(len(ls1)):
+            ans.append(fn(ls1[i], ls2[i]))
+        return ans
+    return zip_lists
+
+
+
 
 
 def addLists(ls1, ls2):
