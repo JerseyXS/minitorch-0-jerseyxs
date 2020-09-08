@@ -171,9 +171,6 @@ def zipWith(fn):
     return zip_lists
 
 
-
-
-
 def addLists(ls1, ls2):
     "Add the elements of `ls1` and `ls2` using :func:`zipWith` and :func:`add`"
     return zipWith(add)(ls1, ls2)
@@ -196,21 +193,32 @@ def reduce(fn, start):
         fn(x_1, x_0)))`
 
     """
-    # TODO: Implement for Task 0.3.
-    raise NotImplementedError('Need to implement for Task 0.3')
+    def reduceMath(ls):
+        acc = start
+        if len(ls) == 0:
+            return acc
+        elif len(ls) == 1:
+            return fn(acc, ls[0])
+        else:
+            for ele in ls:
+                acc = fn(acc, ele)
+        return acc
+    return reduceMath
+
 
 
 def sum(ls):
     """
     Sum up a list using :func:`reduce` and :func:`add`.
     """
-    # TODO: Implement for Task 0.3.
-    raise NotImplementedError('Need to implement for Task 0.3')
-
+    return reduce(add, 0.0)(ls)
 
 def prod(ls):
     """
     Product of a list using :func:`reduce` and :func:`mul`.
     """
-    # TODO: Implement for Task 0.3.
-    raise NotImplementedError('Need to implement for Task 0.3')
+    return reduce(mul, 1)(ls)
+
+if __name__ == '__main__':
+    ls = [1,2,3,4,5]
+    print(reduce(add, 0)(ls))
