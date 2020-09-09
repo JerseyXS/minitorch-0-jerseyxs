@@ -22,13 +22,23 @@ class Module:
 
     def train(self):
         "Set the mode of this module and all descendent modules to `train`."
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError('Need to implement for Task 0.4')
+        self.mode = "train"
+        if self.modules() == []:
+            return
+        else:
+            for item in self.modules():
+                item.train()
+        return
 
     def eval(self):
         "Set the mode of this module and all descendent modules to `eval`."
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError('Need to implement for Task 0.4')
+        self.mode = "eval"
+        if self.modules() == []:
+            return
+        else:
+            for item in self.modules():
+                item.eval()
+        return
 
     def named_parameters(self):
         """
@@ -38,8 +48,26 @@ class Module:
         Returns:
             dict: Each name (key) and :class:`Parameter` (value) under this module.
         """
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError('Need to implement for Task 0.4')
+
+        """
+        Every time you call super().__init()__
+        """
+        ans = {}
+        for i in self._parameters:
+            # i corresponds to module name
+            # Get the corresponding Param value with __getattr__ method
+            # save the param to your dictionary
+            ans[i] = self.__getattr__(i)
+        # Loop through all descendent modules where j corresponds to module name
+        for j in self._modules:
+            # Save dictionary of params for each descendent module to a variable
+            obj = self.__getattr__(j).named_parameters()
+            # Loop through the descendent params and create a path
+            for k in obj:
+                strParams = str(j) + "." + str(k)
+                # Save path and corresponding param back to original dictionary
+                ans[strParams] = obj[k]
+        return ans
 
     def parameters(self):
         return self.named_parameters().values()

@@ -69,3 +69,37 @@ def test_stacked_module():
     assert named_parameters["module_a.parameter_b"].value == VAL_B
     assert named_parameters["module_b.parameter_a"].value == VAL_A
     assert named_parameters["module_b.parameter_b"].value == VAL_B
+
+
+class ModuleA1(minitorch.Module):
+    def __init__(self):
+        super().__init__()
+        self.p1 = minitorch.Parameter(5)
+        self.a = ModuleA2()
+        self.b = ModuleA3()
+
+
+class ModuleA2(minitorch.Module):
+    def __init__(self):
+        super().__init__()
+        self.p2 = minitorch.Parameter(10)
+
+
+class ModuleA3(minitorch.Module):
+    def __init__(self):
+        super().__init__()
+        self.c = ModuleA4()
+
+
+class ModuleA4(minitorch.Module):
+    def __init__(self):
+        super().__init__()
+        self.p3 = minitorch.Parameter(15)
+
+
+@pytest.mark.task0_4
+def test_stacked_module2():
+    np = ModuleA1().named_parameters()
+    assert np["p1"].value == 5
+    assert np["a.p2"].value == 10
+    assert np["b.c.p3"].value == 15
