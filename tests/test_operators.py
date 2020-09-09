@@ -36,7 +36,6 @@ def test_symmetric(x, y):
     assert operators.mul(x, y) == operators.mul(y, x)
 
 
-
 @pytest.mark.task0_2
 @given(small_floats, small_floats, small_floats)
 def test_distribute(x, y, z):
@@ -44,7 +43,10 @@ def test_distribute(x, y, z):
     Write a test that ensures that your operators distribute, i.e.
     :math:`z \times (x + y) = z \times x + z \times y`
     """
-    assert_close(operators.mul(z, operators.add(x, y)), operators.add(operators.mul(z, x), operators.mul(z, y)))
+    assert_close(
+        operators.mul(z, operators.add(x, y)),
+        operators.add(operators.mul(z, x), operators.mul(z, y)),
+    )
 
 
 @pytest.mark.task0_2
@@ -53,7 +55,9 @@ def test_other(x, y, z):
     """
     Write a test that ensures some other property holds for your functions.
     """
-    assert_close(operators.add(x, operators.add(y, z)), operators.add(operators.add(x, y), z))
+    assert_close(
+        operators.add(x, operators.add(y, z)), operators.add(operators.add(x, y), z)
+    )
 
 
 # HIGHER ORDER
@@ -75,7 +79,10 @@ def test_property(ls1, ls2):
     Write a test that ensures that the sum of `ls1` plus the sum of `ls2`
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
-    assert_close(operators.add(operators.sum(ls1), operators.sum(ls2)), operators.sum(operators.addLists(ls1, ls2)))
+    assert_close(
+        operators.add(operators.sum(ls1), operators.sum(ls2)),
+        operators.sum(operators.addLists(ls1, ls2)),
+    )
 
 
 @pytest.mark.task0_3

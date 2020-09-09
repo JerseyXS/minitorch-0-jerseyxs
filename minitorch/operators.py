@@ -62,10 +62,9 @@ def sigmoid(x):
 
     """
     if x >= 0:
-        return (1.0)/(1.0 + math.exp(-x))
+        return (1.0) / (1.0 + math.exp(-x))
     else:
-        return (math.exp(x))/(1.0 + math.exp(x))
-
+        return (math.exp(x)) / (1.0 + math.exp(x))
 
 
 def relu(x):
@@ -86,7 +85,6 @@ def relu_back(x, y):
         return y
     else:
         return 0
-
 
 
 EPS = 1e-6
@@ -134,11 +132,13 @@ def map(fn):
     Returns:
         function : a function that takes a list and applies `fn` to each element
     """
+
     def apply_to_list(list):
         copy = list.copy()
         for ele in copy:
             copy[ele] = fn(ele)
         return copy
+
     return apply_to_list
 
 
@@ -163,11 +163,13 @@ def zipWith(fn):
         applying fn(x, y) one each pair of elements.
 
     """
+
     def zip_lists(ls1, ls2):
         ans = []
         for i in range(len(ls1)):
             ans.append(fn(ls1[i], ls2[i]))
         return ans
+
     return zip_lists
 
 
@@ -193,6 +195,7 @@ def reduce(fn, start):
         fn(x_1, x_0)))`
 
     """
+
     def reduceMath(ls):
         acc = start
         if len(ls) == 0:
@@ -203,8 +206,8 @@ def reduce(fn, start):
             for ele in ls:
                 acc = fn(acc, ele)
         return acc
-    return reduceMath
 
+    return reduceMath
 
 
 def sum(ls):
@@ -213,12 +216,9 @@ def sum(ls):
     """
     return reduce(add, 0.0)(ls)
 
+
 def prod(ls):
     """
     Product of a list using :func:`reduce` and :func:`mul`.
     """
     return reduce(mul, 1)(ls)
-
-if __name__ == '__main__':
-    ls = [1,2,3,4,5]
-    print(reduce(add, 0)(ls))
